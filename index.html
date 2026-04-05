@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tolga Kus – Bewerbung</title>
+<link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700&display=swap)" rel="stylesheet">
+<style>
+:root {
+  --black: #050507;
+  --dark: #0d0d10;
+  --card: #111114;
+  --border: #1e1e24;
+  --gold: #C9A84C;
+  --gold2: #e8c97a;
+  --cream: #e8e4d9;
+  --muted: #6b6b75;
+  --text: #c8c4bb;
+  --white: #f5f2ec;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.3s, height 0.3s;
+}
+
+/* GRAIN OVERLAY */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='[w3.org](http://www.w3.org/2000/svg)'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* VIGNETTE */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* LOADER */
+#loader {
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+#loader .loader-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: var(--white);
+  overflow: hidden;
+}
+.loader-name span {
+  display: inline-block;
+  animation: slideUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+.loader-name span:nth-child(2) { animation-delay: 0.1s; color: var(--gold); }
+.loader-line {
+  width: 0; height: 1px;
+  background: var(--gold);
+  margin-top: 20px;
+  animation: expandLine 1.2s 0.5s ease forwards;
+}
+.loader-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 16px;
+  opacity: 0;
+  animation: fadeIn 0.6s 1.2s ease forwards;
+}
+@keyframes expandLine { to { width: 320px; } }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(5,5,7,0.9), transparent);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.nav-logo em { color: var(--gold); font-style: italic; }
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 50%);
+}
+.hero-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-ghost {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(10rem, 25vw, 22rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,76,0.07);
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.hero-content { position: relative; z-index: 2; max-width: 900px; }
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.8s ease forwards;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: var(--gold);
+}
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: -3px;
+  color: var(--white);
+  opacity: 0;
+  animation: fadeUp 0.9s 1.9s cubic-bezier(0.16,1,0.3,1) forwards;
+  margin-bottom: 6px;
+}
+.hero-name-last {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+.hero-tagline {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--muted);
+  margin-top: 28px;
+  margin-bottom: 48px;
+  max-width: 560px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.8s 2.1s ease forwards;
+}
+.hero-meta {
+  display: flex;
+  gap: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 2.3s ease forwards;
+}
+.hero-meta-item {
+  border-left: 1px solid var(--border);
+  padding-left: 20px;
+}
+.hero-meta-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.hero-meta-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.scroll-hint {
+  position: absolute; bottom: 40px; right: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeIn 1s 2.8s ease forwards;
+}
+.scroll-hint span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.4; transform: scaleY(0.7); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: var(--border);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 60px;
+}
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--white);
+  margin-bottom: 70px;
+}
+.section-title em { color: var(--gold); font-style: italic; }
+
+/* PROFIL */
+.profil-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.profil-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.profil-text p { margin-bottom: 20px; }
+.profil-text strong { color: var(--cream); font-weight: 500; }
+.info-stack {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.info-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  background: var(--card);
+  padding: 18px 24px;
+  align-items: center;
+  transition: background 0.2s;
+}
+.info-row:hover { background: #16161a; }
+.info-key {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.info-val { font-size: 0.88rem; color: var(--cream); }
+
+/* SKILLS */
+.skills-section { margin-top: 60px; }
+.skills-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.skill-item { margin-bottom: 18px; }
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.skill-track {
+  height: 2px;
+  background: var(--border);
+  position: relative;
+}
+.skill-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  animation: grow 1.5s ease both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes grow { from { width: 0; } }
+
+/* ERFAHRUNG */
+.exp-list { display: grid; gap: 2px; background: var(--border); }
+.exp-item {
+  background: var(--card);
+  padding: 40px 48px;
+  transition: background 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s ease;
+}
+.exp-item:hover { background: #13131a; }
+.exp-item:hover::before { transform: scaleY(1); }
+.exp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 20px;
+}
+.exp-role {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.exp-company {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.exp-period {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+}
+.exp-bullets { list-style: none; color: var(--muted); font-size: 0.88rem; line-height: 1.9; }
+.exp-bullets li { padding-left: 20px; position: relative; margin-bottom: 2px; }
+.exp-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+/* AUSBILDUNG */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2px;
+  background: var(--border);
+}
+.edu-card {
+  background: var(--card);
+  padding: 40px 36px;
+  transition: background 0.3s;
+}
+.edu-card:hover { background: #13131a; }
+.edu-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.edu-degree {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.edu-inst {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.edu-period { font-size: 0.78rem; color: var(--muted); }
+
+/* ANSCHREIBEN */
+.letter-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--border);
+  margin-bottom: 2px;
+}
+.ltab {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 32px;
+  background: var(--card);
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  text-align: left;
+  position: relative;
+  transition: background 0.3s;
+}
+.ltab::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.ltab.active::after { transform: scaleX(1); }
+.ltab:hover { background: #14141a; }
+.ltab-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+  transition: color 0.3s, -webkit-text-stroke 0.3s;
+}
+.ltab.active .ltab-num { color: var(--gold); -webkit-text-stroke: none; }
+.ltab-text { display: flex; flex-direction: column; gap: 2px; }
+.ltab-main {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  text-transform: uppercase;
+}
+.ltab-sub {
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+}
+
+.letter-outer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.letter-outer::before {
+  content: '"';
+  position: absolute;
+  top: -40px; right: 60px;
+  font-family: 'Playfair Display', serif;
+  font-size: 20rem;
+  color: rgba(201,168,76,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+.letter-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 48px 60px 40px;
+  border-bottom: 1px solid var(--border);
+}
+.letter-from-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.letter-from-detail { font-size: 0.82rem; color: var(--muted); line-height: 1.9; }
+.letter-date-block { text-align: right; font-size: 0.82rem; color: var(--muted); }
+.letter-date-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.letter-body-wrap { padding: 48px 60px; }
+.letter-to {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+}
+.letter-subject-line {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 32px;
+  line-height: 1.3;
+}
+.letter-p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 2;
+  margin-bottom: 20px;
+}
+.letter-p strong { color: var(--cream); font-weight: 500; }
+.letter-sig {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.letter-sig-close { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+.letter-sig-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* STRENGTHS */
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2px;
+  background: var(--border);
+}
+.strength-card {
+  background: var(--card);
+  padding: 32px 28px;
+  transition: background 0.3s;
+}
+.strength-card:hover { background: #13131a; }
+.strength-icon { font-size: 2rem; margin-bottom: 14px; }
+.strength-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.strength-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+/* CONTACT */
+.contact-wrap {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 80px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+.contact-bg-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,76,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.contact-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: var(--white);
+  margin-bottom: 16px;
+  position: relative;
+}
+.contact-title em { color: var(--gold); font-style: italic; }
+.contact-sub { font-size: 0.9rem; color: var(--muted); margin-bottom: 56px; position: relative; }
+.contact-items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  border: 1px solid var(--border);
+}
+.contact-item {
+  padding: 32px 48px;
+  border-right: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.3s;
+  flex: 1;
+  min-width: 200px;
+}
+.contact-item:last-child { border-right: none; }
+.contact-item:hover { background: rgba(201,168,76,0.05); }
+.ci-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.ci-val { font-size: 0.9rem; color: var(--cream); }
+
+/* FOOTER */
+footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+}
+.footer-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--muted); }
+.footer-name em { color: var(--gold); font-style: italic; }
+.footer-copy { font-size: 0.72rem; color: var(--border); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-ghost { display: none; }
+  .section { padding: 60px 24px; }
+  .profil-grid { grid-template-columns: 1fr; gap: 48px; }
+  .exp-item { padding: 28px 24px; }
+  .letter-top { grid-template-columns: 1fr; }
+  .letter-body-wrap { padding: 32px 24px; }
+  .contact-wrap { padding: 60px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; gap: 12px; text-align: center; }
+  .ltab { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-name">
+    <span>Tolga</span>&nbsp;<span>Kus</span>
+  </div>
+  <div class="loader-line"></div>
+  <div class="loader-sub">Bewerbungsunterlagen 2026</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Tolga <em>Kus</em></div>
+  <ul class="nav-links">
+    <li><a href="#profil">Profil</a></li>
+    <li><a href="#erfahrung">Erfahrung</a></li>
+    <li><a href="#anschreiben">Anschreiben</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-ghost">TK</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Bewerbungsunterlagen · Celle, 2026</div>
+    <h1 class="hero-name">
+      Tolga
+      <span class="hero-name-last">Kus</span>
+    </h1>
+    <p class="hero-tagline">
+      Fachkraft für Lagerlogistik mit über 10 Jahren branchenübergreifender Erfahrung – zuverlässig, vielseitig und bereit für neue Herausforderungen.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Standort</div>
+        <div class="hero-meta-val">Celle</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Abschluss</div>
+        <div class="hero-meta-val">Fachkraft f. Lagerlogistik</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Verfügbar</div>
+        <div class="hero-meta-val">Ab sofort</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROFIL -->
+<section class="section reveal" id="profil">
+  <div class="section-label">01 — Profil</div>
+  <h2 class="section-title">Über <em>mich</em></h2>
+  <div class="profil-grid">
+    <div class="profil-text">
+      <p>Mein Name ist <strong>Tolga Kus</strong>. Ich bin 32 Jahre alt, in Celle zu Hause und bringe eine <strong>über zehnjährige Berufserfahrung</strong> in der Lagerlogistik, Produktion und im pädagogischen Bereich mit.</p>
+      <p>Als ausgebildete <strong>Fachkraft für Lagerlogistik</strong> habe ich in namhaften Unternehmen wie Hellmann Logistics, Bode Chemie und Volkswagen gearbeitet und dabei tiefe Kenntnisse in Materialfluss, Kommissionierung, Warenwirtschaftssystemen und kaufmännischen Prozessen aufgebaut.</p>
+      <p>Neben meiner logistischen Laufbahn habe ich als <strong>Dozent und Workshopleiter</strong> in Hamburg kreative und pädagogische Kompetenz bewiesen – ein Ausdruck meiner Vielseitigkeit und Kommunikationsstärke.</p>
+      <p>Ich bin <strong>belastbar, zuverlässig und teamorientiert</strong> – bereit, meine Erfahrung in einem neuen Umfeld einzubringen und weiterzuentwickeln.</p>
+      <div class="skills-section">
+        <div class="skills-title">// Fachkenntnisse</div>
+        <div class="skill-item">
+          <div class="skill-header"><span>Lagerlogistik & Materialfluss</span><span>95%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:95%;--d:0.1s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>Kommissionierung & Staplerführung</span><span>90%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:90%;--d:0.2s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>MS Office</span><span>75%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:75%;--d:0.3s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>SAP (Warenwirtschaft)</span><span>55%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:55%;--d:0.4s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span>Projektplanung & Eventmanagement</span><span>80%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:80%;--d:0.5s"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profil-aside">
+      <div class="info-stack">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-val">Tolga Kus</span></div>
+        <div class="info-row"><span class="info-key">Geburtsdatum</span><span class="info-val">11. Oktober 1993</span></div>
+        <div class="info-row"><span class="info-key">Nationalität</span><span class="info-val">Deutsch</span></div>
+        <div class="info-row"><span class="info-key">Ort</span><span class="info-val">Celle</span></div>
+        <div class="info-row"><span class="info-key">Telefon</span><span class="info-val">01634 362 944</span></div>
+        <div class="info-row"><span class="info-key">E-Mail</span><span class="info-val">Kustolga46@gmail.com</span></div>
+        <div class="info-row"><span class="info-key">Führerschein</span><span class="info-val">Klasse B</span></div>
+        <div class="info-row"><span class="info-key">Gabelstapler</span><span class="info-val">Gabelstaplerschein ✓</span></div>
+        <div class="info-row"><span class="info-key">Abschluss</span><span class="info-val">Realschulabschluss</span></div>
+        <div class="info-row"><span class="info-key">Hobbys</span><span class="info-val">Ausdauersport, Musik, Naturwiss.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ERFAHRUNG -->
+<section class="section reveal" id="erfahrung">
+  <div class="section-label">02 — Berufslaufbahn</div>
+  <h2 class="section-title">Erfahrung &amp; <em>Stationen</em></h2>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Innerbetrieblicher Transport</div>
+          <div class="exp-company">Kottermann GmbH · Uetze</div>
+        </div>
+        <div class="exp-period">Seit Dez. 2024</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Transport von Laboreinrichtungen innerhalb des Unternehmens</li>
+        <li>Unterstützung im Bereich Materialfluss und Logistik</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Dozent & Workshopleiter</div>
+          <div class="exp-company">Hip Hop Akademie Hamburg / Richard-Linde-Weg-Schule / Jugendhäuser · Hamburg</div>
+        </div>
+        <div class="exp-period">Aug. 2021 – Dez. 2023</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Unterricht, Seminare und praktische Kurse im Bereich Musik</li>
+        <li>Betreuung künstlerischer Projekte</li>
+        <li>Kooperationen mit kulturellen Einrichtungen</li>
+        <li>Vorbereitung von Lehrmaterialien und Verwaltungstätigkeiten</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Produktionshelfer</div>
+          <div class="exp-company">Hohne · Kaltenkirchen</div>
+        </div>
+        <div class="exp-period">Jan. – Aug. 2021</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Produktion chemischer Dichtungsmaterialien</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Produktionshelfer & Fachkraft für Lagerlogistik</div>
+          <div class="exp-company">Trend GmbH · Hamburg</div>
+        </div>
+        <div class="exp-period">Mai – Dez. 2020</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Wareneingang und -ausgang</li>
+        <li>Kommissionierung, Staplertätigkeiten</li>
+        <li>Organisation bürowirtschaftlicher Prozesse</li>
+        <li>Kaufmännische Aufgaben inkl. Schriftverkehr und Stammdatenpflege</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Fachkraft für Lagerlogistik</div>
+          <div class="exp-company">Bode Chemie · Hamburg</div>
+        </div>
+        <div class="exp-period">Nov. 2019 – Apr. 2020</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Lieferüberwachung</li>
+        <li>Buchung im Warenwirtschaftssystem</li>
+        <li>Telefonische Lieferantenabwicklung</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Fachkraft für Lagerlogistik</div>
+          <div class="exp-company">Hellmann Logistics · Lehrte</div>
+        </div>
+        <div class="exp-period">Okt. 2018 – Okt. 2019</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Informations- & Materialfluss</li>
+        <li>Terminüberwachung, Erstellung von Statistiken</li>
+        <li>Kontrolle von Lieferungen</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Fachkraft für Lagerlogistik</div>
+          <div class="exp-company">Conpac GmbH · Celle</div>
+        </div>
+        <div class="exp-period">März – Sept. 2018</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Kommissionierung</li>
+        <li>Lagerverwaltung und EDV-Buchungen</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Vertretung der Lagerleitung</div>
+          <div class="exp-company">MC Garagen · Adelheitsdorf, Celle</div>
+        </div>
+        <div class="exp-period">Juli 2017 – Dez. 2018</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Vertretung der Lagerleitung</li>
+        <li>Verbuchung von Lieferungen</li>
+        <li>Terminplanung</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Produktionsmitarbeiter (VW)</div>
+          <div class="exp-company">Volkswagen AG · Wolfsburg</div>
+        </div>
+        <div class="exp-period">Juni – Sept. 2013</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Materialbeschaffung, Transport und Qualitätskontrolle</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AUSBILDUNG -->
+<section class="section reveal">
+  <div class="section-label">03 — Bildung</div>
+  <h2 class="section-title">Ausbildung &amp; <em>Qualifikationen</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-num">01</div>
+      <div class="edu-degree">Fachkraft für Lagerlogistik</div>
+      <div class="edu-inst">Securitas Sicherheitstechnik GmbH · Celle</div>
+      <div class="edu-period">Aug. 2014 – Juni 2017 · Abschluss erfolgreich</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-num">02</div>
+      <div class="edu-degree">Realschulabschluss</div>
+      <div class="edu-inst">Celle</div>
+      <div class="edu-period">Schulabschluss</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-num">03</div>
+      <div class="edu-degree">Gabelstaplerschein</div>
+      <div class="edu-inst">Zertifizierung</div>
+      <div class="edu-period">Führerschein Klasse B</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ANSCHREIBEN -->
+<section class="section reveal" id="anschreiben">
+  <div class="section-label">04 — Anschreiben</div>
+  <h2 class="section-title">Meine <em>Anschreiben</em></h2>
+
+  <div class="letter-tabs">
+    <button class="ltab active" onclick="switchLetter(0, this)">
+      <span class="ltab-num">01</span>
+      <div class="ltab-text"><span class="ltab-main">Fachinformatiker</span><span class="ltab-sub">Anwendungsentwicklung</span></div>
+    </button>
+    <button class="ltab" onclick="switchLetter(1, this)">
+      <span class="ltab-num">02</span>
+      <div class="ltab-text"><span class="ltab-main">Duales Studium</span><span class="ltab-sub">Informatik / Wirtschaftsinformatik</span></div>
+    </button>
+  </div>
+
+  <!-- Letter 0 -->
+  <div class="letter-outer letter-panel" id="letter-0">
+    <div class="letter-top">
+      <div>
+        <div class="letter-from-name">Tolga Kus</div>
+        <div class="letter-from-detail">Celle<br>01634 362 944<br>Kustolga46@gmail.com</div>
+      </div>
+      <div class="letter-date-block">
+        <div class="letter-date-label">Datum</div>
+        Celle, April 2026
+      </div>
+    </div>
+    <div class="letter-body-wrap">
+      <div class="letter-to">Sehr geehrte Damen und Herren</div>
+      <div class="letter-subject-line">Bewerbung als Auszubildender zum Fachinformatiker Anwendungsentwicklung (m/w/d)</div>
+      <p class="letter-p">mit großer Begeisterung bewerbe ich mich auf Ihren Ausbildungsplatz zum <strong>Fachinformatiker für Anwendungsentwicklung</strong>. Die Welt der Softwareentwicklung fasziniert mich seit Jahren – und ich bin fest entschlossen, diesen Weg jetzt konsequent einzuschlagen.</p>
+      <p class="letter-p">Mein bisheriger Werdegang mag auf den ersten Blick unkonventionell wirken: Über <strong>zehn Jahre Berufserfahrung</strong> in Lagerlogistik, Produktion und als Dozent haben mir etwas mitgegeben, das viele unterschätzen – <strong>strukturiertes Denken, Prozessverständnis und echte Problemlösungskompetenz</strong>. Im Lager habe ich mit Warenwirtschaftssystemen (SAP), EDV-Buchungen und datengetriebenen Abläufen gearbeitet. Als Dozent habe ich komplexe Inhalte verständlich vermittelt und Projekte eigenverantwortlich geplant. Beides ist in der Softwareentwicklung von unschätzbarem Wert.</p>
+      <p class="letter-p">Ich habe begonnen, mir <strong>erste Programmierkenntnisse</strong> selbstständig anzueignen, und merke: Diese Art zu denken liegt mir. Logik, Struktur, kreative Lösungen – das ist genau das, wofür ich brenne. Eine Ausbildung bei Ihnen wäre der ideale Rahmen, um dieses Potential in professionelles Handwerk zu verwandeln.</p>
+      <p class="letter-p">Ich bin <strong>motiviert, lernbereit und bringe die Reife eines Erwachsenen</strong> mit, der diesen Schritt bewusst und mit vollem Einsatz geht. Ich freue mich sehr auf ein persönliches Gespräch.</p>
+      <div class="letter-sig">
+        <div class="letter-sig-close">Mit freundlichen Grüßen,</div>
+        <div class="letter-sig-name">Tolga Kus</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Letter 1 -->
+  <div class="letter-outer letter-panel" id="letter-1" style="display:none">
+    <div class="letter-top">
+      <div>
+        <div class="letter-from-name">Tolga Kus</div>
+        <div class="letter-from-detail">Celle<br>01634 362 944<br>Kustolga46@gmail.com</div>
+      </div>
+      <div class="letter-date-block">
+        <div class="letter-date-label">Datum</div>
+        Celle, April 2026
+      </div>
+    </div>
+    <div class="letter-body-wrap">
+      <div class="letter-to">Sehr geehrte Damen und Herren</div>
+      <div class="letter-subject-line">Bewerbung für ein duales Studium Informatik / Wirtschaftsinformatik (B.Sc.)</div>
+      <p class="letter-p">hiermit bewerbe ich mich mit großem Enthusiasmus für einen Platz in Ihrem dualen Studiengang <strong>Informatik bzw. Wirtschaftsinformatik</strong>. Die Kombination aus akademischer Ausbildung und praktischer Unternehmenserfahrung überzeugt mich vollständig – und passt perfekt zu meiner Art zu lernen.</p>
+      <p class="letter-p">Ich bringe etwas Entscheidendes mit: <strong>echte Berufserfahrung</strong>. Über ein Jahrzehnt in Lagerlogistik, Produktion und als Workshopleiter hat mir gezeigt, wie Unternehmen wirklich funktionieren – Prozesse, Datenflüsse, kaufmännische Zusammenhänge. Genau hier liegt die Stärke der <strong>Wirtschaftsinformatik</strong>: an der Schnittstelle von IT und Business. Ich kenne beide Seiten aus der Praxis.</p>
+      <p class="letter-p">Mein <strong>analytisches Denkvermögen</strong>, das ich täglich in der Logistik eingesetzt habe – ob bei der Erstellung von Statistiken, der Optimierung von Materialflüssen oder der Organisation komplexer Abläufe – ist eine solide Grundlage für informatisches Denken. Ich habe mit SAP-Systemen gearbeitet und verstehe, wie Software reale Prozesse abbildet.</p>
+      <p class="letter-p">Ein duales Studium bei Ihnen würde mir ermöglichen, <strong>theoretisches Wissen sofort in der Praxis anzuwenden</strong> – und umgekehrt. Ich bin bereit, alles dafür zu geben. Über eine Einladung zum Gespräch freue ich mich sehr.</p>
+      <div class="letter-sig">
+        <div class="letter-sig-close">Mit freundlichen Grüßen,</div>
+        <div class="letter-sig-name">Tolga Kus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STÄRKEN -->
+<section class="section reveal" id="staerken">
+  <div class="section-label">05 — Was ich mitbringe</div>
+  <h2 class="section-title">Meine <em>Stärken</em></h2>
+  <div class="strengths-grid">
+    <div class="strength-card reveal">
+      <div class="strength-icon">🧠</div>
+      <div class="strength-title">Analytisches Denken</div>
+      <div class="strength-desc">Jahrelange Erfahrung mit Statistiken, Materialflüssen und Warenwirtschaftssystemen hat mein strukturiertes Denken geschärft.</div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🎤</div>
+      <div class="strength-title">Kommunikation</div>
+      <div class="strength-desc">Als Dozent und Workshopleiter habe ich gelernt, komplexe Inhalte klar zu vermitteln – eine Schlüsselkompetenz in jedem Tech-Team.</div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🔄</div>
+      <div class="strength-title">Vielseitigkeit</div>
+      <div class="strength-desc">Von VW bis zur Musikakademie: Ich passe mich schnell an neue Umgebungen an und lerne kontinuierlich dazu.</div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">⚙️</div>
+      <div class="strength-title">Prozessverständnis</div>
+      <div class="strength-desc">Ich verstehe, wie Unternehmen funktionieren – Abläufe, Datenflüsse, Schnittstellen. Genau das macht gute IT aus.</div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🎯</div>
+      <div class="strength-title">Zielstrebigkeit</div>
+      <div class="strength-desc">Der Wechsel in die IT ist eine bewusste Entscheidung. Ich gehe diesen Weg mit voller Überzeugung und Ausdauer.</div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🤝</div>
+      <div class="strength-title">Teamgeist</div>
+      <div class="strength-desc">Ob Logistikteam oder Kreativprojekt – ich arbeite gerne mit Menschen zusammen und bringe Zuverlässigkeit mit.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KONTAKT -->
+<section class="section reveal" id="kontakt">
+  <div class="section-label">06 — Kontakt</div>
+  <div class="contact-wrap">
+    <div class="contact-bg-text">TK</div>
+    <h2 class="contact-title">Jetzt <em>Kontakt</em> aufnehmen</h2>
+    <p class="contact-sub">Ich freue mich auf Ihre Nachricht – per Telefon oder E-Mail.</p>
+    <div class="contact-items">
+      <a class="contact-item" href="tel:01634362944">
+        <div class="ci-label">Telefon</div>
+        <div class="ci-val">01634 362 944</div>
+      </a>
+      <a class="contact-item" href="mailto:Kustolga46@gmail.com">
+        <div class="ci-label">E-Mail</div>
+        <div class="ci-val">Kustolga46@gmail.com</div>
+      </a>
+      <div class="contact-item">
+        <div class="ci-label">Standort</div>
+        <div class="ci-val">Celle, Deutschland</div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-label">Verfügbarkeit</div>
+        <div class="ci-val">Ab sofort</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Tolga <em>Kus</em> · Bewerbung 2026</div>
+  <div class="footer-copy">Alle Angaben vertraulich</div>
+</footer>
+
+<script>
+// LOADER
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2200);
+});
+
+// CUSTOM CURSOR
+const cur = document.getElementById('cur');
+const curRing = document.getElementById('curRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  cur.style.left = mx + 'px';
+  cur.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  curRing.style.left = rx + 'px';
+  curRing.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .exp-item, .edu-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.width = '20px';
+    cur.style.height = '20px';
+    curRing.style.width = '56px';
+    curRing.style.height = '56px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.width = '10px';
+    cur.style.height = '10px';
+    curRing.style.width = '36px';
+    curRing.style.height = '36px';
+  });
+});
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// LETTER TABS
+function switchLetter(idx, btn) {
+  document.querySelectorAll('.letter-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('letter-' + idx).style.display = 'block';
+  document.querySelectorAll('.ltab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
